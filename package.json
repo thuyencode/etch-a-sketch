@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/color-convert": "^2.0.3",
     "autoprefixer": "^10.4.16",
+    "color-convert": "^2.0.1",
     "cssnano": "^6.0.1",
     "eslint-config-prettier": "^9.0.0",
     "eslint-config-standard": "^17.1.0",
