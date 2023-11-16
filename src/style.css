@@ -1,3 +1,49 @@
+@import url(https://fonts.bunny.net/css?family=silkscreen:400);
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply box-border;
+  }
+  button {
+    @apply inline-flex items-center justify-center gap-x-2 border px-4 py-3 text-sm font-semibold disabled:pointer-events-none disabled:opacity-50 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 max-sm:px-3 max-sm:py-2 max-sm:text-xs 2xl:p-4;
+  }
+  button[data-state=''] {
+    @apply border-gray-400 text-gray-500 hover:border-blue-600 hover:text-blue-600 dark:border-gray-700 dark:text-gray-400 dark:hover:text-blue-500;
+  }
+  button[data-state='chosen'] {
+    @apply border-transparent bg-blue-600 text-white hover:bg-opacity-80;
+  }
+  input {
+    @apply cursor-pointer appearance-none bg-transparent;
+  }
+  input[type='color'] {
+    @apply h-20 w-20 border-none [&::-moz-color-swatch]:rounded-full [&::-webkit-color-swatch]:rounded-full;
+  }
+  input[type='range'] {
+    @apply w-full cursor-pointer appearance-none bg-transparent focus:outline-none disabled:pointer-events-none disabled:opacity-50 [&::-moz-range-thumb]:h-2.5 [&::-moz-range-thumb]:w-2.5 [&::-moz-range-thumb]:appearance-none [&::-moz-range-thumb]:rounded-full [&::-moz-range-thumb]:border-4 [&::-moz-range-thumb]:border-blue-600 [&::-moz-range-thumb]:bg-white [&::-moz-range-thumb]:transition-all [&::-moz-range-thumb]:duration-150 [&::-moz-range-thumb]:ease-in-out [&::-moz-range-track]:h-2 [&::-moz-range-track]:w-full [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-gray-300 [&::-webkit-slider-runnable-track]:h-2 [&::-webkit-slider-runnable-track]:w-full [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-gray-300 [&::-webkit-slider-runnable-track]:dark:bg-gray-700 [&::-webkit-slider-thumb]:-mt-0.5 [&::-webkit-slider-thumb]:h-2.5 [&::-webkit-slider-thumb]:w-2.5 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:shadow-[0_0_0_4px_rgba(37,99,235,1)] [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:duration-150 [&::-webkit-slider-thumb]:ease-in-out [&::-webkit-slider-thumb]:dark:bg-slate-700;
+  }
+}
+
+@layer components {
+  button[data-state=''].rainbow {
+    @apply hover:border-orange-500 hover:text-orange-500 dark:hover:border-lime-300 dark:hover:text-lime-300;
+  }
+  button[data-state=''].dangerous {
+    @apply border-red-500 text-red-500 hover:border-red-400 hover:text-red-400;
+  }
+  button[data-state='chosen'].rainbow {
+    @apply border-0 bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400 hover:from-green-300 hover:via-blue-500 hover:to-purple-600;
+  }
+  button[data-state='chosen'].dangerous {
+    @apply bg-red-500 hover:bg-red-600;
+  }
+
+  /* The background color will be filled using JavaScript */
+  .slot {
+    @apply border-r-[0.5px] border-t-[0.5px] border-slate-400 bg-white hover:bg-opacity-90;
+  }
+}
