@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -7,6 +9,9 @@ export default {
       width: { screen: '100vw' },
       maxHeight: { screen: '100dvh' },
       maxWidth: { screen: '100dvw' },
+      fontFamily: {
+        sans: ['Silkscreen', ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   plugins: [],
