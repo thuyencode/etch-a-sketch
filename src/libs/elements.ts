@@ -8,7 +8,7 @@ export const hsColorInputLabel = document.querySelector<HTMLInputElement>(
   'label[for="hs-color-input"]',
 )
 
-export const pencil = document.querySelector<HTMLButtonElement>('#pencil')
+export const pencilBtn = document.querySelector<HTMLButtonElement>('#pencil')
 
 export const layoutRangeSlider = document.querySelector<HTMLInputElement>(
   '#layout-range-slider',
@@ -17,3 +17,11 @@ export const layoutRangeSlider = document.querySelector<HTMLInputElement>(
 export const layoutRangeSliderLabel = document.querySelector<HTMLInputElement>(
   'label[for="layout-range-slider"]',
 )
+
+export const clearAllBtn =
+  document.querySelector<HTMLButtonElement>('#clear-all')
+
+export const rainbowBtn =
+  document.querySelector<HTMLButtonElement>('#rainbow-mode')
+
+export const eraserBtn = document.querySelector<HTMLButtonElement>('#eraser')

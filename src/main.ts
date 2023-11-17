@@ -1,20 +1,41 @@
-import { config as defaultConfig } from './libs/config'
+import 'remixicon/fonts/remixicon.css'
 import {
+  clearAllBtn,
+  eraserBtn,
   gridContainer,
   hsColorInput,
   hsColorInputLabel,
   layoutRangeSlider,
   layoutRangeSliderLabel,
+  pencilBtn,
+  rainbowBtn,
 } from './libs/elements'
-import { convertHexToRgb } from './libs/utils'
+import {
+  convertHexToRgb,
+  getRandomRgb,
+  resetDataStateOfBtns,
+} from './libs/utils'
+
+let isMouseDown = false
+
+document.body.addEventListener('mousedown', () => (isMouseDown = true))
+document.body.addEventListener('mouseup', () => (isMouseDown = false))
+
+const defaultConfig = {
+  empty: true,
+  rainbowMode: false,
+  eraserEnabled: false,
+  pencilColor: 'rgb(37 99 235 / var(--tw-bg-opacity))',
+}
+
+const config = { ...defaultConfig }
 
 const handler = {
   set: function (target: any, property: any, value: any) {
     if (property === 'empty' && value === false) {
-      console.log('disabled')
-      hsColorInput!.classList
-    } else if (property === 'empty' && value === false) {
-      hsColorInput!.removeAttribute('disabled')
+      layoutRangeSlider!.setAttribute('disabled', 'true')
+    } else if (property === 'empty' && value === true) {
+      layoutRangeSlider!.removeAttribute('disabled')
     }
 
     target[property] = value
@@ -23,11 +44,26 @@ const handler = {
   },
 }
 
-const config = { ...defaultConfig }
-const proxy = new Proxy(config, handler)
+const proxy = new Proxy<typeof config>(config, handler)
 
-export function appendNewSlots(n: number) {
+function appendNewSlots(n: number) {
   if (!config.empty) return
+
+  function changeBg(e: MouseEvent) {
+    if (e.type === 'mouseover' && !isMouseDown) {
+      return
+    }
+
+    if (config.eraserEnabled) {
+      ;(e.target as HTMLDivElement).style.backgroundColor = 'white'
+    } else {
+      ;(e.target as HTMLDivElement).style.backgroundColor = !config.rainbowMode
+        ? config.pencilColor
+        : getRandomRgb()
+    }
+
+    proxy.empty = false
+  }
 
   gridContainer!.innerHTML = ''
   gridContainer!.style.gridTemplateColumns = `repeat(${n}, minmax(0, 1fr))`
@@ -36,13 +72,19 @@ export function appendNewSlots(n: number) {
   for (let i = 1; i <= n * n; i++) {
     const slot = document.createElement('div')
 
-    slot.addEventListener('mousedown', () => {
-      slot.style.backgroundColor = config.pencilColor
-      proxy.empty = false
-    })
+    slot.addEventListener('mouseover', changeBg)
+    slot.addEventListener('mousedown', changeBg)
     slot.setAttribute('class', 'slot')
+
     gridContainer!.appendChild(slot)
   }
+}
+
+function clearAll() {
+  gridContainer!.childNodes.forEach(
+    (slot) => ((slot as HTMLDivElement).style.backgroundColor = 'white'),
+  )
+  proxy.empty = true
 }
 
 layoutRangeSlider!.addEventListener('input', () => {
@@ -61,4 +103,34 @@ hsColorInput!.addEventListener('input', () => {
   config.pencilColor = convertHexToRgb(value)
 })
 
+clearAllBtn!.addEventListener('click', () => clearAll())
+
+pencilBtn!.addEventListener('click', () => {
+  resetDataStateOfBtns()
+
+  pencilBtn!.setAttribute('data-state', 'chosen')
+
+  config.rainbowMode = false
+  config.eraserEnabled = false
+})
+
+rainbowBtn!.addEventListener('click', () => {
+  resetDataStateOfBtns()
+
+  rainbowBtn!.setAttribute('data-state', 'chosen')
+
+  config.rainbowMode = true
+  config.eraserEnabled = false
+})
+
+eraserBtn!.addEventListener('click', () => {
+  resetDataStateOfBtns()
+
+  eraserBtn!.setAttribute('data-state', 'chosen')
+
+  config.eraserEnabled = true
+  config.rainbowMode = false
+})
+
+// Run this function first
 appendNewSlots(16)

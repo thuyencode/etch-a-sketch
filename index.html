@@ -15,7 +15,7 @@
       class="container mx-auto flex h-screen items-center justify-center gap-7 max-md:p-2 max-sm:flex-col md:gap-14"
     >
       <div
-        class="flex w-full max-w-[200px] flex-col flex-wrap items-center justify-center gap-3 sm:w-1/3"
+        class="flex w-full max-w-[200px] flex-row flex-wrap items-center justify-center gap-3 sm:w-1/3 md:flex-col"
       >
         <div
           class="flex min-w-[120px] flex-col items-center justify-center rounded border border-gray-400 text-center dark:border-gray-700"
@@ -34,21 +34,33 @@
           />
         </div>
         <button type="button" class="w-full" id="pencil" data-state="chosen">
-          Pencil Mode
+          <i class="ri-pencil-fill"></i> Pencil Mode
         </button>
-        <button type="button" class="rainbow w-full" data-state="">
-          Rainbow Mode
+        <button
+          type="button"
+          class="rainbow w-full"
+          id="rainbow-mode"
+          data-state=""
+        >
+          <i class="ri-palette-line"></i> Rainbow Mode
         </button>
-        <button type="button" class="w-full" data-state="">Eraser</button>
-        <button type="button" class="dangerous w-full" data-state="">
-          Clear All
+        <button type="button" class="w-full" id="eraser" data-state="">
+          <i class="ri-eraser-fill"></i> Eraser
+        </button>
+        <button
+          type="button"
+          id="clear-all"
+          class="dangerous w-full"
+          data-state=""
+        >
+          <i class="ri-delete-bin-2-line"></i> Clear All
         </button>
         <div
           class="flex w-full flex-col items-center justify-center gap-2 text-center"
         >
-          <label class="max-sm:order-last" for="layout-range-slider"
-            >16 x 16</label
-          >
+          <label class="max-sm:order-last" for="layout-range-slider">
+            16 x 16
+          </label>
           <input
             type="range"
             id="layout-range-slider"
@@ -59,6 +71,7 @@
           />
         </div>
       </div>
+
       <div
         class="grid aspect-square h-fit w-full max-w-[960px] border-b-[0.5px] border-l-[0.5px] border-slate-400 sm:w-2/3 lg:w-1/2"
         id="grid-container"

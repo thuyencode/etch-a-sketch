@@ -33,13 +33,10 @@
     @apply hover:border-orange-500 hover:text-orange-500 dark:hover:border-lime-300 dark:hover:text-lime-300;
   }
   button[data-state=''].dangerous {
-    @apply border-red-500 text-red-500 hover:border-red-400 hover:text-red-400;
+    @apply border-red-500 text-red-500 hover:border-red-400 hover:border-transparent hover:bg-red-500 hover:text-white active:hover:bg-red-600;
   }
   button[data-state='chosen'].rainbow {
-    @apply border-0 bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400 hover:from-green-300 hover:via-blue-500 hover:to-purple-600;
-  }
-  button[data-state='chosen'].dangerous {
-    @apply bg-red-500 hover:bg-red-600;
+    @apply bg-gradient-to-r from-sky-400 via-rose-400 to-lime-400 hover:from-green-300 hover:via-blue-500 hover:to-purple-600;
   }
 
   /* The background color will be filled using JavaScript */
