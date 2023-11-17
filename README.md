@@ -1,4 +1,4 @@
-# Rock, Paper and Scissors
+# Etch-a-Sketch
 
 [More detail information here](https://www.theodinproject.com/lessons/foundations-etch-a-sketch).
 
