@@ -30,3 +30,8 @@ npm run preview
 bun run build
 bun preview
 ```
+
+## Assets
+
+- Icons used: Designed by [Remix Icon](https://remixicon.com), through [Iconify](https://iconify.design)
+- UI components by [Preline UI](https://preline.co)
