@@ -25,3 +25,6 @@ export const rainbowBtn =
   document.querySelector<HTMLButtonElement>('#rainbow-mode')
 
 export const eraserBtn = document.querySelector<HTMLButtonElement>('#eraser')
+
+export const customCursor =
+  document.querySelector<HTMLImageElement>('#custom-cursor')

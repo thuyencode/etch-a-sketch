@@ -1,4 +1,4 @@
-import 'remixicon/fonts/remixicon.css'
+import 'iconify-icon'
 import {
   clearAllBtn,
   eraserBtn,
@@ -11,9 +11,12 @@ import {
   rainbowBtn,
 } from './libs/elements'
 import {
+  changeCursor,
   convertHexToRgb,
+  getDimensions,
   getRandomRgb,
   resetDataStateOfBtns,
+  throttle,
 } from './libs/utils'
 
 let isMouseDown = false
@@ -32,10 +35,12 @@ const config = { ...defaultConfig }
 
 const handler = {
   set: function (target: any, property: any, value: any) {
-    if (property === 'empty' && value === false) {
-      layoutRangeSlider!.setAttribute('disabled', 'true')
-    } else if (property === 'empty' && value === true) {
-      layoutRangeSlider!.removeAttribute('disabled')
+    if (property === 'empty') {
+      if (value === false) {
+        layoutRangeSlider!.setAttribute('disabled', 'true')
+      } else {
+        layoutRangeSlider!.removeAttribute('disabled')
+      }
     }
 
     target[property] = value
@@ -107,6 +112,7 @@ clearAllBtn!.addEventListener('click', () => clearAll())
 
 pencilBtn!.addEventListener('click', () => {
   resetDataStateOfBtns()
+  changeCursor('pencil-fill')
 
   pencilBtn!.setAttribute('data-state', 'chosen')
 
@@ -116,6 +122,7 @@ pencilBtn!.addEventListener('click', () => {
 
 rainbowBtn!.addEventListener('click', () => {
   resetDataStateOfBtns()
+  changeCursor('palette-line')
 
   rainbowBtn!.setAttribute('data-state', 'chosen')
 
@@ -125,11 +132,16 @@ rainbowBtn!.addEventListener('click', () => {
 
 eraserBtn!.addEventListener('click', () => {
   resetDataStateOfBtns()
+  changeCursor('eraser-fill')
 
   eraserBtn!.setAttribute('data-state', 'chosen')
 
   config.eraserEnabled = true
   config.rainbowMode = false
+})
+
+window.addEventListener('mousemove', (e) => {
+  throttle(getDimensions(e), 1000)
 })
 
 // Run this function first
