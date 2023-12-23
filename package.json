@@ -10,8 +10,12 @@
     "deploy": "gh-pages --dist 'dist' --branch 'gh-pages'"
   },
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
     "autoprefixer": "^10.4.16",
+    "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard-with-typescript": "^43.0.0",
     "gh-pages": "^6.1.1",
     "hex-rgb": "^5.0.0",
     "postcss": "^8.4.32",
@@ -19,7 +23,8 @@
     "prettier-plugin-tailwindcss": "^0.5.9",
     "tailwindcss": "^3.4.0",
     "typescript": "^5.3.3",
-    "vite": "^5.0.10"
+    "vite": "^5.0.10",
+    "vite-plugin-simple-html": "^0.1.2"
   },
   "dependencies": {
     "iconify-icon": "^1.0.8"
