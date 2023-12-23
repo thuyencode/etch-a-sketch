@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/prefer-ts-expect-error */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import 'iconify-icon'
 import {
   clearAllBtn,
@@ -8,7 +11,7 @@ import {
   layoutRangeSlider,
   layoutRangeSliderLabel,
   pencilBtn,
-  rainbowBtn,
+  rainbowBtn
 } from './libs/elements'
 import {
   changeCursor,
@@ -16,7 +19,7 @@ import {
   getDimensions,
   getRandomRgb,
   resetDataStateOfBtns,
-  throttle,
+  throttle
 } from './libs/utils'
 
 let isMouseDown = false
@@ -28,33 +31,38 @@ const defaultConfig = {
   empty: true,
   rainbowMode: false,
   eraserEnabled: false,
-  pencilColor: 'rgb(37 99 235 / var(--tw-bg-opacity))',
+  pencilColor: 'rgb(37 99 235 / var(--tw-bg-opacity))'
 }
 
 const config = { ...defaultConfig }
 
 const handler = {
-  set: function (target: any, property: any, value: any) {
+  set: function (
+    target: typeof config,
+    property: keyof typeof config,
+    value: boolean | string
+  ) {
     if (property === 'empty') {
       if (value === false) {
-        layoutRangeSlider!.setAttribute('disabled', 'true')
+        layoutRangeSlider?.setAttribute('disabled', 'true')
       } else {
-        layoutRangeSlider!.removeAttribute('disabled')
+        layoutRangeSlider?.removeAttribute('disabled')
       }
     }
 
+    // @ts-ignore
     target[property] = value
 
     return true
-  },
+  }
 }
 
 const proxy = new Proxy<typeof config>(config, handler)
 
-function appendNewSlots(n: number) {
+function appendNewSlots(n: number): void {
   if (!config.empty) return
 
-  function changeBg(e: MouseEvent) {
+  function changeBg(e: MouseEvent): void {
     if (e.type === 'mouseover' && !isMouseDown) {
       return
     }
@@ -85,9 +93,9 @@ function appendNewSlots(n: number) {
   }
 }
 
-function clearAll() {
+function clearAll(): void {
   gridContainer!.childNodes.forEach(
-    (slot) => ((slot as HTMLDivElement).style.backgroundColor = 'white'),
+    (slot) => ((slot as HTMLDivElement).style.backgroundColor = 'white')
   )
   proxy.empty = true
 }
@@ -108,7 +116,9 @@ hsColorInput!.addEventListener('input', () => {
   config.pencilColor = convertHexToRgb(value)
 })
 
-clearAllBtn!.addEventListener('click', () => clearAll())
+clearAllBtn!.addEventListener('click', () => {
+  clearAll()
+})
 
 pencilBtn!.addEventListener('click', () => {
   resetDataStateOfBtns()
@@ -141,6 +151,7 @@ eraserBtn!.addEventListener('click', () => {
 })
 
 window.addEventListener('mousemove', (e) => {
+  // eslint-disable-next-line @typescript-eslint/no-confusing-void-expression
   throttle(getDimensions(e), 1000)
 })
 
